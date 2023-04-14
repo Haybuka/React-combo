@@ -206,3 +206,21 @@ This approach gives us access to the formik props on a parent level, and we can 
 
 2.  There is a prop called 'dirty', this refers to the initial state of the app when its first mounted. If no values have changed onMount (or onBlur), dirty is false. This value changes to true when a field value is altered.
     The dirty method can be used, but it has a drawback for when you use it with a preloaded value. It requires interaction for it to track.
+
+3.  Disabling button for Api call usage(Typical use), This requires the isSubmitting boolean props to be chained in button onSubmit. You can pass it in as a value to the onSubmit Handler. You can control this usage using the SetSubmitting after api call is done. The submit takes in a second value, which we can pull the setSubmitting and isSubmitting from
+
+```
+const onSubmit = (values,onSubmitProps) => {
+  console.log(onSubmitProps)
+  const {setSubmitting} = onSubmitProps
+
+  setSubmitting(false)
+}
+
+
+//in Form Return
+
+<button type="submit" disabled={formik.isSubmitting}>Submit</button>
+
+
+```

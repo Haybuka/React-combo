@@ -15,3 +15,11 @@ Points about the Field component
 1. Create the said object in initial values (as we have socials on line 12)
 2. Create corresponding field inputs
 3. Set name attribute to the object values you wish to access
+
+## Grouping input Values as Array
+  To group data as array, depending as the Api demands (phoneNumber :['','']), first step
+1. Create the said array in initial values (as we have phone Numbers on line 16)
+2. Create corresponding field inputs
+3. Set name attribute to the array values index you wish to access
+
+Write custom validations as you like to handle both using renderprops

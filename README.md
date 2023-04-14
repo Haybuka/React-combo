@@ -132,3 +132,22 @@ const initialValues = { username: [""] };
           </FieldArray>
 ```
 6. Have fun with project, and utilize error message.
+
+## Fast Field component (use with caution), Used mainly for performance optimization
+  It helps to 
+  - Render error to only affected fields (onBlur), as opposed to the conventional logging at once.
+  - Optimize the Field component to reduce page re-renders..
+
+  ```
+    import {FastField} from 'Formik';
+  ```
+
+  - Usage
+
+  ```
+      <div className="form-control">
+          <label htmlFor="channel">Channel</label>
+          <FastField type="text" id="channel" name="channel" />
+          <ErrorMessage name="channel" />
+        </div>
+  ```

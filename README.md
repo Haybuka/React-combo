@@ -1,25 +1,140 @@
-## Formik Usage and Notes
+## Formik Usage and Notes (Youtube Form Component)
+
 Points about the Field component
+
 1. by default, it renders input
 2. It hooks up the field props to formik (handleblur,handleChange,value)
 3. Takes in normal attributes as a normal input would
 4. A different element other than input can be added as in "comments" field in Code using the "as" keyword
-  - The as props can take several values including other component in other to decide what element to render if it isnt input
+
+- The as props can take several values including other component in other to decide what element to render if it isnt input
+
 5. Render Props Pattern : gives more fine grained control over rendering of props field, used as in address in formik sample. It is mostly used when rendering custom form fields
-  - Render props pattern uses a function as children to the component in opening and closing tags
-  - console logging props (line 54) from the child function will expose 3 objects(field,form & meta) which can be further used to hook up formik
-  - To hook the field with formik, we need to spread the Field props (this takes care of name,value,handleChange and handleBlur props).
+
+- Render props pattern uses a function as children to the component in opening and closing tags
+- console logging props (line 54) from the child function will expose 3 objects(field,form & meta) which can be further used to hook up formik
+- To hook the field with formik, we need to spread the Field props (this takes care of name,value,handleChange and handleBlur props).
+
+6. ErrorMessage props is as its name, but it renders a text, instesd of a stylable element. In other to style this, we pass in a component (and in this render props as children) as we did in youTube forms, the name input.
 
 ## Grouping Values as Object
-  To group data as object, depending as the Api demands (data : {...values}), first step
+
+To group data as object, depending as the Api demands (data : {...values}), first step
+
 1. Create the said object in initial values (as we have socials on line 12)
 2. Create corresponding field inputs
 3. Set name attribute to the object values you wish to access
 
 ## Grouping input Values as Array
-  To group data as array, depending as the Api demands (phoneNumber :['','']), first step
+
+To group data as array, depending as the Api demands (phoneNumber :['','']), first step
+
 1. Create the said array in initial values (as we have phone Numbers on line 16)
 2. Create corresponding field inputs
 3. Set name attribute to the array values index you wish to access
 
 Write custom validations as you like to handle both using renderprops
+
+## Field Array (Field Array component under Formik)
+
+- Rendering an array of field components
+  You know how google form does its work where you click plus and a new field turns up for you to populate with a type you set, well this is formiks response to that. You can use Field array to set up dynamic field choices.
+
+#steps
+1. Import FieldArray from formik
+```
+import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
+
+```
+2. Set up one initial value of a field as an array
+
+```
+const initialValues = { username: [""] };
+
+```
+3. Use render prop approach on field array in other to look through for other available methods, also pass in name of field to match.
+- push adds to the field value array
+- remove, removes from array
+- on the form destructured, values of the field can be accessed and passed into Field component
+```
+<FieldArray name="username">
+  {
+    (fieldArrayProps) => {
+       const { push, remove, form } = fieldArrayProps;
+              const { values } = form;
+              const { username } = values;
+              return (
+                <div> Field Array</div>
+              )
+    }
+  }
+</FieldArray>
+```
+4. Map through the value array already destructured from values, and Set up Field from formik, name of field matches an index value.
+```
+<FieldArray name="username">
+            {(fieldArrayProps) => {
+              // console.log(fieldArrayProps);
+              const { push, remove, form } = fieldArrayProps;
+              const { values } = form;
+              const { username } = values;
+              console.log(username);
+              return (
+                <div>
+                  {username.map((name, index) => (
+                    <section key={index}>
+                      <div>
+                        <Field
+                          name={`username[${index}]`}
+                          id="username"
+                          type="text"
+                        />
+                      </div>
+                    
+                    </section>
+                  ))}
+                </div>
+              );
+            }}
+          </FieldArray>
+```
+
+5. Wire up push and remove in other to increase or decrease fields. Also conditional button for remove if field index is less than one
+
+```
+<FieldArray name="username">
+            {(fieldArrayProps) => {
+              // console.log(fieldArrayProps);
+              const { push, remove, form } = fieldArrayProps;
+              const { values } = form;
+              const { username } = values;
+              console.log(username);
+              return (
+                <div>
+                  {username.map((name, index) => (
+                    <section key={index}>
+                      <div>
+                        <Field
+                          name={`username[${index}]`}
+                          id="username"
+                          type="text"
+                        />
+                        {/* <ErrorMessage
+                          name={`username[${index}]`}
+                          className="error"
+                        /> */}
+                      </div>
+                      <p className="button-group">
+                        {index > 0 && (
+                          <button onClick={() => remove(index)}>-</button>
+                        )}
+                        <button onClick={() => push(index)}>+</button>
+                      </p>
+                    </section>
+                  ))}
+                </div>
+              );
+            }}
+          </FieldArray>
+```
+6. Have fun with project.

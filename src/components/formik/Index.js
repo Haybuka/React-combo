@@ -1,10 +1,12 @@
 import React from 'react'
 import YoutubeForm from './YoutubeForm'
+import FieldArrays from './FieldArray/FieldArray'
 
 const FormikIndex = () => {
   return (
     <div>
-        <YoutubeForm />
+        {/* <YoutubeForm /> */}
+        <FieldArrays />
     </div>
   )
 }

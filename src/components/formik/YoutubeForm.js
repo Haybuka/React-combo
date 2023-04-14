@@ -45,8 +45,8 @@ const YoutubeForm = () => {
     validationSchema
   });
 
-  const { handleChange, handleBlur, values, handleSubmit,errors,touched } = formik;
-    console.log(touched)
+  const { handleChange, handleBlur, values, handleSubmit,errors,touched,getFieldProps } = formik;
+   
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -56,9 +56,7 @@ const YoutubeForm = () => {
             type="text"
             id="name"
             name="name"
-            onChange={handleChange}
-            value={values.name}
-            onBlur={handleBlur}
+    {...getFieldProps('name')}
           />
           {touched.name && errors.name && (<p className="error">{errors.name}</p>)}
         </div>
@@ -69,9 +67,8 @@ const YoutubeForm = () => {
             type="email"
             id="email"
             name="email"
-            onChange={handleChange}
-            value={values.email}
-            onBlur={handleBlur}
+            {...getFieldProps('email')}
+
           />
           {touched.email && errors.email && (<p className="error">{errors.email}</p>)}
 
@@ -83,9 +80,8 @@ const YoutubeForm = () => {
             type="text"
             id="channel"
             name="channel"
-            onChange={handleChange}
-            value={values.channel}
-            onBlur={handleBlur}
+            {...getFieldProps('channel')}
+
 
           />
           {touched.channel && errors.channel && (<p className="error">{errors.channel}</p>)}

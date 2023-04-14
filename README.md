@@ -78,7 +78,6 @@ const initialValues = { username: [""] };
               const { push, remove, form } = fieldArrayProps;
               const { values } = form;
               const { username } = values;
-              console.log(username);
               return (
                 <div>
                   {username.map((name, index) => (
@@ -104,7 +103,6 @@ const initialValues = { username: [""] };
 ```
 <FieldArray name="username">
             {(fieldArrayProps) => {
-              // console.log(fieldArrayProps);
               const { push, remove, form } = fieldArrayProps;
               const { values } = form;
               const { username } = values;
@@ -119,10 +117,6 @@ const initialValues = { username: [""] };
                           id="username"
                           type="text"
                         />
-                        {/* <ErrorMessage
-                          name={`username[${index}]`}
-                          className="error"
-                        /> */}
                       </div>
                       <p className="button-group">
                         {index > 0 && (
@@ -137,4 +131,4 @@ const initialValues = { username: [""] };
             }}
           </FieldArray>
 ```
-6. Have fun with project.
+6. Have fun with project, and utilize error message.

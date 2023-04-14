@@ -9,3 +9,9 @@ Points about the Field component
   - Render props pattern uses a function as children to the component in opening and closing tags
   - console logging props (line 54) from the child function will expose 3 objects(field,form & meta) which can be further used to hook up formik
   - To hook the field with formik, we need to spread the Field props (this takes care of name,value,handleChange and handleBlur props).
+
+## Grouping Values as Object
+  To group data as object, depending as the Api demands (data : {...values}), first step
+1. Create the said object in initial values (as we have socials on line 12)
+2. Create corresponding field inputs
+3. Set name attribute to the object values you wish to access

@@ -5,8 +5,8 @@ import FieldArrays from './FieldArray/FieldArray'
 const FormikIndex = () => {
   return (
     <div>
-        {/* <YoutubeForm /> */}
-        <FieldArrays />
+        <YoutubeForm />
+        {/* <FieldArrays /> */}
     </div>
   )
 }

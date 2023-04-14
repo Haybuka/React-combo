@@ -41,21 +41,27 @@ Write custom validations as you like to handle both using renderprops
   You know how google form does its work where you click plus and a new field turns up for you to populate with a type you set, well this is formiks response to that. You can use Field array to set up dynamic field choices.
 
 #steps
+
 1. Import FieldArray from formik
+
 ```
 import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
 
 ```
+
 2. Set up one initial value of a field as an array
 
 ```
 const initialValues = { username: [""] };
 
 ```
+
 3. Use render prop approach on field array in other to look through for other available methods, also pass in name of field to match.
+
 - push adds to the field value array
 - remove, removes from array
 - on the form destructured, values of the field can be accessed and passed into Field component
+
 ```
 <FieldArray name="username">
   {
@@ -70,7 +76,9 @@ const initialValues = { username: [""] };
   }
 </FieldArray>
 ```
+
 4. Map through the value array already destructured from values, and Set up Field from formik, name of field matches an index value.
+
 ```
 <FieldArray name="username">
             {(fieldArrayProps) => {
@@ -89,7 +97,7 @@ const initialValues = { username: [""] };
                           type="text"
                         />
                       </div>
-                    
+
                     </section>
                   ))}
                 </div>
@@ -131,23 +139,70 @@ const initialValues = { username: [""] };
             }}
           </FieldArray>
 ```
+
 6. Have fun with project, and utilize error message.
 
 ## Fast Field component (use with caution), Used mainly for performance optimization
-  It helps to 
-  - Render error to only affected fields (onBlur), as opposed to the conventional logging at once.
-  - Optimize the Field component to reduce page re-renders..
 
-  ```
-    import {FastField} from 'Formik';
-  ```
+It helps to
 
-  - Usage
+- Render error to only affected fields (onBlur), as opposed to the conventional logging at once.
+- Optimize the Field component to reduce page re-renders..
 
-  ```
-      <div className="form-control">
-          <label htmlFor="channel">Channel</label>
-          <FastField type="text" id="channel" name="channel" />
-          <ErrorMessage name="channel" />
-        </div>
-  ```
+```
+  import {FastField} from 'Formik';
+```
+
+- Usage
+
+```
+    <div className="form-control">
+        <label htmlFor="channel">Channel</label>
+        <FastField type="text" id="channel" name="channel" />
+        <ErrorMessage name="channel" />
+      </div>
+```
+
+- Validate on Change(or on Blur) instructs formik not to run validation for change or blur events. It still retains validate on submit
+
+  ````
+   <Formik validateOnChange={false}>
+
+   </Formik>
+   ```
+
+  ````
+
+## Disabling submit
+
+Disabling submit csn be done in 2 ways
+
+1. Checking when button is clicked.
+   To use this way, make sure your formik element use the render props approach
+
+```
+ <Formik>
+   {formik => {
+    console.log(formik)
+    return (
+      <Form>
+         <div className="form-control">
+              <label htmlFor="email">E-mail</label>
+              <Field type="email" id="email" name="email" />
+              <ErrorMessage name="email">
+                {(errorMsg) => <p className="error">{errorMsg}</p>}
+              </ErrorMessage>
+          </div>
+          <button type="submit" disabled={!formik.isValid}>Submit</button>
+
+      </Form>
+    )
+   }}
+ </Formik>
+
+```
+
+This approach gives us access to the formik props on a parent level, and we can make use of the isValid property on said props to conditionally control the form submission through button click.
+
+2.  There is a prop called 'dirty', this refers to the initial state of the app when its first mounted. If no values have changed onMount (or onBlur), dirty is false. This value changes to true when a field value is altered.
+    The dirty method can be used, but it has a drawback for when you use it with a preloaded value. It requires interaction for it to track.

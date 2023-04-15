@@ -1,12 +1,16 @@
 import React from 'react'
 import YoutubeForm from './YoutubeForm'
 import FieldArrays from './FieldArray/FieldArray'
+import ReusableFormik from './ReusableFormik/ReusableFormik'
+import LoginForm from './Login/LoginForm'
 
 const FormikIndex = () => {
   return (
     <div>
-        <YoutubeForm />
+        {/* <YoutubeForm /> */}
         {/* <FieldArrays /> */}
+        {/* <ReusableFormik /> */}
+        <LoginForm />
     </div>
   )
 }

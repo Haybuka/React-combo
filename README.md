@@ -25,7 +25,7 @@ To group data as object, depending as the Api demands (data : {...values}), firs
 2. Create corresponding field inputs
 3. Set name attribute to the object values you wish to access
 
-# Grouping input Values as Array
+### Grouping input Values as Array
 
 To group data as array, depending as the Api demands (phoneNumber :['','']), first step
 
@@ -35,7 +35,7 @@ To group data as array, depending as the Api demands (phoneNumber :['','']), fir
 
 Write custom validations as you like to handle both using renderprops
 
-## Field Array (Field Array component under Formik)
+### Field Array (Field Array component under Formik)
 
 - Rendering an array of field components
   You know how google form does its work where you click plus and a new field turns up for you to populate with a type you set, well this is formiks response to that. You can use Field array to set up dynamic field choices.
@@ -142,7 +142,7 @@ const initialValues = { username: [""] };
 
 6. Have fun with project, and utilize error message.
 
-## Fast Field component (use with caution), Used mainly for performance optimization
+### Fast Field component (use with caution), Used mainly for performance optimization
 
 It helps to
 
@@ -226,3 +226,52 @@ const onSubmit = (values,onSubmitProps) => {
 ```
 
 ### Loading Saved data
+
+Used when loading data to pre-fill form data from an api.
+
+Methods to note while reading corresponding code in YoutubeForm component.
+
+- enableReinitialize ( so it supports reinitialize)
+- initialValues takes in the initial from statically typed, or from formValues loaded from api
+
+```
+  const savedValues = {
+    name: "Paschal",
+    email: "p@p.com",
+    channel: "Youtubes",
+    comments: "I am legend.",
+    address: "",
+    social: {
+      facebook: "",
+      twitter: "",
+    },
+    phoneNumbers: ["", ""],
+  };
+
+  const [formValues,setFormValues] = useState('')
+
+<Formik
+   initialValues={formValues || initialValues}
+   validationSchema={validationSchema}
+   onSubmit={onSubmit}
+   validateOnMount={true}
+   enableReinitialize
+ >
+
+</Formik>
+```
+
+### Reset
+
+To reset form after submission
+
+```
+const onSubmit = (values,onSubmitProps) => {
+  console.log(onSubmitProps)
+  const {setSubmitting,resetForm} = onSubmitProps
+
+  setSubmitting(false)
+  resetForm()
+}
+
+```

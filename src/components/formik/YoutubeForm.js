@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
 const YoutubeForm = () => {
+  const savedValues = {
+    name: "Paschal",
+    email: "p@p.com",
+    channel: "Youtubes",
+    comments: "I am legend.",
+    address: "",
+    social: {
+      facebook: "",
+      twitter: "",
+    },
+    phoneNumbers: ["", ""],
+  };
+  const [formValues,setFormValues] = useState('')
   const initialValues = {
     name: "",
     email: "",
@@ -15,6 +28,8 @@ const YoutubeForm = () => {
     },
     phoneNumbers: ["", ""],
   };
+
+
 
   const onSubmit = (values) => {
     console.log(values);
@@ -30,10 +45,11 @@ const YoutubeForm = () => {
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={formValues || initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
       validateOnMount={true}
+      enableReinitialize
     >
       {(formik) => {
         console.log('in formik props', formik)
@@ -104,6 +120,7 @@ const YoutubeForm = () => {
               <Field as="textarea" type="text" id="comments" name="comments" />
               <ErrorMessage name="comments" />
             </div>
+            <button type="submit" onClick={() => setFormValues(savedValues)}>Load saved data</button>
             <button type="submit" disabled={!formik.isValid}>Submit</button>
           </Form>
         );

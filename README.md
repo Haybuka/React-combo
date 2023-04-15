@@ -17,7 +17,7 @@ Points about the Field component
 
 6. ErrorMessage props is as its name, but it renders a text, instesd of a stylable element. In other to style this, we pass in a component (and in this render props as children) as we did in youTube forms, the name input.
 
-## Grouping Values as Object
+### Grouping Values as Object
 
 To group data as object, depending as the Api demands (data : {...values}), first step
 
@@ -25,7 +25,7 @@ To group data as object, depending as the Api demands (data : {...values}), firs
 2. Create corresponding field inputs
 3. Set name attribute to the object values you wish to access
 
-## Grouping input Values as Array
+# Grouping input Values as Array
 
 To group data as array, depending as the Api demands (phoneNumber :['','']), first step
 
@@ -224,3 +224,5 @@ const onSubmit = (values,onSubmitProps) => {
 
 
 ```
+
+### Loading Saved data

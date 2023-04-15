@@ -10,7 +10,7 @@ const Radio = (props) => {
       <label>{label}</label>
       <Field name={name} {...rest}>
         {({ field }) => {
-            console.log(field)
+            // console.log(field)
           return options?.map((option) => {
             return (
               <div key={option.key} className="radio">

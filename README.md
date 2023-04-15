@@ -275,3 +275,41 @@ const onSubmit = (values,onSubmitProps) => {
 }
 
 ```
+
+### Intermediate schema with yup
+
+- Full work can be found in registeration component
+
+```
+
+  const options = [
+    { key: "Email", value: "emailmoc" },
+    { key: "Telephone", value: "telephonemoc" },
+  ];
+  const initialValues = {
+    email: "",
+    password: "",
+    confirmPassword: "",
+    modeOfContact: "",
+    phone: "",
+  };
+
+// This schema checks for the values above
+// the confirm password validates the password
+//mode of contact determines if the phone number field is required.
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email("Invalid field type")
+      .required("Email field is required"),
+    password: Yup.string().required("Password field is required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password"), ""], "Passwords must match")
+      .required("Required"),
+    modeOfContact: Yup.string().required("Required"),
+    phone: Yup.string().when("modeOfContact", {
+      is: "telephonemoc",
+      then: Yup.string().required("Required"),
+    }),
+  });
+```

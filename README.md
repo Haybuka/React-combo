@@ -41,28 +41,28 @@ const countReducer = (state, action) => {
 - setup jsx and usage
 
 ```
-  <div >
-        <p>{counter}</p>
+    <div>
+          <p>{counter}</p>
 
-        <button
-          style={{ padding: "10px 15px", border: "none", margin: "0 10px" }}
-          onClick={() => dispatch({ type: "increment", payload: 5 })}
-        >
-          Increase
-        </button>
-        <button
-          style={{ padding: "10px 15px", border: "none", margin: "0 10px" }}
-          onClick={() => dispatch({ type: "decrement", payload: 5 })}
-        >
-          Decrease
-        </button>
+          <button
+            style={{ padding: "10px 15px", border: "none", margin: "0 10px" }}
+            onClick={() => dispatch({ type: "increment", payload: 5 })}
+          >
+            Increase
+         </button>
          <button
-        style={{ padding: "10px 15px", border: "none", margin: "0 10px",display:"block" }}
-        onClick={() => dispatch({ type: "reset" })}
-      >
-        Reset
-      </button>
-      </div>
+           style={{ padding: "10px 15px", border: "none", margin: "0 10px" }}
+           onClick={() => dispatch({ type: "decrement", payload: 5 })}
+         >
+           Decrease
+         </button>
+         <button
+           style={{ padding: "10px 15px", border: "none", margin: "0 10px",display:"block" }}
+           onClick={() => dispatch({ type: "reset" })}
+         >
+           Reset
+         </button>
+    </div>
 
 ```
 
@@ -77,7 +77,7 @@ Note - Dispatch function takes in a type in other to properly call the switch. Y
    username: "",
    password: "",
  };
- 
+
 ```
 
 - In switch, It is imperative to spread state in each switch case in other to persist or save other data in state.
@@ -113,13 +113,13 @@ Note - Dispatch function takes in a type in other to properly call the switch. Y
 
 ````
       <div>
-        <label>Username : {formData?.username}</label>
-        <input
-          name="username"
-          id="username"
-          value={formData?.username}
-          onChange={(event) =>
-            dispatch({ type: "username", payload: event.target.value })
+          <label>Username : {formData?.username}</label>
+          <input
+             name="username"
+             id="username"
+             value={formData?.username}
+             onChange={(event) =>
+               dispatch({ type: "username", payload: event.target.value })
           }
         />
       </div>
@@ -127,3 +127,12 @@ Note - Dispatch function takes in a type in other to properly call the switch. Y
 ````
 
 ### UseReducer - Multiple reducer
+- Multiple useReducers can use the same reducer function. Just rename their output values, and also the dispatch
+
+```
+  const [counterOne, dispatchOne] = useReducer(countReducer, initialStateOne);
+  const [counterTwo, dispatchTwo] = useReducer(countReducer, initialStateTwo);
+
+```
+
+## Challenge Setup useReducer and Formik (Yup for validation).

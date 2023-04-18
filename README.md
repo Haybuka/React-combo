@@ -136,3 +136,6 @@ Note - Dispatch function takes in a type in other to properly call the switch. Y
 ```
 
 ## Challenge Setup useReducer and Formik (Yup for validation).
+
+### Use reducer and api request.
+   This is already setup in the dataFetching component. read through and apply previous knowledge.

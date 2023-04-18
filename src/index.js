@@ -7,11 +7,9 @@ import { ReducerContextProvider } from "./context/ReducerContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
     <ReducerContextProvider>
       <App />
     </ReducerContextProvider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

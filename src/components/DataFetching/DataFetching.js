@@ -3,7 +3,7 @@ import { _dataFetching } from "../../api/dataFetching";
 
 const DataFetching = () => {
   const initialState = {
-    post: [],
+    posts: [],
     error: "",
     isLoading: "",
   };
@@ -20,16 +20,16 @@ const DataFetching = () => {
       case DataTypes.IS_LOADING:
         return { ...state, isLoading: payload };
       case DataTypes.FETCH_SUCCESS:
-        return { error: "", isLoading: false, post: payload };
+        return { error: "", isLoading: false, posts: payload };
       case DataTypes.FETCH_ERROR:
-        return { post: [], isLoading: false, error: payload };
+        return { posts: [], isLoading: false, error: payload };
       default:
         return state;
     }
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { post, isLoading, error } = state;
+  const { posts, isLoading, error } = state;
 
   const dataFetching = async () => {
     dispatch({ type: "IS_LOADING", payload: true });
@@ -37,14 +37,12 @@ const DataFetching = () => {
     try {
       const response = await _dataFetching();
       if (response.status === 200) {
-        dispatch({ type: "FETCH_SUCCESS", payload: response });
+        dispatch({ type: "FETCH_SUCCESS", payload: response.data });
       } else {
         throw new Error(response);
       }
     } catch (error) {
-      console.log(error.message);
       dispatch({ type: "FETCH_ERROR", payload: error.message });
-      //   console.log(state);
     }
 
     dispatch({ type: "IS_LOADING", payload: false });
@@ -53,11 +51,29 @@ const DataFetching = () => {
   useEffect(() => {
     dataFetching();
   }, []);
-  console.log(post)
   return isLoading ? (
     <p>Loading</p>
   ) : (
-    <section>{!error ? <p>no error</p> : <p>{error}</p>}</section>
+        !error ? (
+        <ul style={{listStyle:"none"}}>
+        {
+            posts.map( post => (
+                <li key={post.id}>
+                   <section style={{padding:"19px 15px",margin:"10px 0",display:"flex",justifyContent:"space-between",alignItems:"center",boxShadow:"1px 1px 5px #000 "}}>
+                   <div>
+                        <h3>{post.name}</h3>
+                        <p>{post.username}</p>
+                    </div>
+                    <div>
+                        <h3>{post.email}</h3>
+                        <p>{post.phone}</p>
+                    </div>
+                   </section >
+                </li>
+            ))
+        }
+    </ul>
+    ) : <p>{error}</p>
   );
 };
 

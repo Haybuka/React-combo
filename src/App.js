@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import "./App.css";
+// import "./App.css";
 import BasicTable from "./components/ReactTable/BasicTable";
 
 function App() {

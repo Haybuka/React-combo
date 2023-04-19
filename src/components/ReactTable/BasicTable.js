@@ -1,12 +1,21 @@
 import React, { useMemo } from "react";
 import { useTable } from "react-table";
-import { COLUMNS } from "./columns";
+import { COLUMNS, GROUPED_COLUMNS } from "./columns";
 import MOCK_DATA from "../MOCK_DATA.json";
 import "./table.css";
 const BasicTable = () => {
   const columns = useMemo(() => COLUMNS, []);
+  // To group columns using the grouped column from columnsJs
+  //   const columns = useMemo(() => GROUPED_COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow,footerGroups }  = useTable({
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    footerGroups,
+  } = useTable({
     columns,
     data,
   });
@@ -46,7 +55,7 @@ const BasicTable = () => {
           })}
         </tbody>
         <tfoot>
-        {footerGroups.map((footerGroup) => (
+          {footerGroups.map((footerGroup) => (
             <tr {...footerGroup.getFooterGroupProps()}>
               {footerGroup.headers.map((column) => (
                 //Header property coming from Header column in imported.

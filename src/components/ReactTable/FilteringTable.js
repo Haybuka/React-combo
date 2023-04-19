@@ -1,11 +1,18 @@
 import React, { useMemo } from "react";
-import { useTable, useSortBy } from "react-table";
+import { useTable, useGlobalFilter,useFilters } from "react-table";
 import { COLUMNS, GROUPED_COLUMNS } from "./columns";
 import MOCK_DATA from "../MOCK_DATA.json";
 import "./table.css";
-const SortingTable = () => {
+import GlobalFilter from "./GlobalFilter";
+import ColumnFilter from "./ColumnFilter";
+const FilteringTable = () => {
   const columns = useMemo(() => COLUMNS, []);
+  // To group columns using the grouped column from columnsJs
+  //   const columns = useMemo(() => GROUPED_COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
+  const defaultColumn = useMemo(() => {return {
+    Filter : ColumnFilter
+  }},[])
   const {
     getTableProps,
     getTableBodyProps,
@@ -13,17 +20,25 @@ const SortingTable = () => {
     rows,
     prepareRow,
     footerGroups,
+    state,
+    setGlobalFilter,
+
   } = useTable(
     {
       columns,
       data,
+      defaultColumn
     },
-    useSortBy
+    useFilters,
+    useGlobalFilter
   );
-
-  //date column comes in iso format
+  const { globalFilter } = state;
   return (
     <div>
+      {/*Global filtering is a client side filter
+         Filters apply to all columns in the table
+         requires state,setGlobal filter,flobalFilter from state to work */}
+      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
       {/* //pass in getTableProps */}
       <table {...getTableProps()}>
         {/* Header group goes into the head */}
@@ -32,15 +47,13 @@ const SortingTable = () => {
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 //Header property coming from Header column in imported.
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render("Header")}
-                  <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? "👍"
-                        : "👇"
-                      : "😂"}
-                  </span>
+                <th {...column.getHeaderProps()}> 
+                {column.render("Header")}
+                <div>
+                    {
+                        column.canFilter ? column.render('Filter') : null
+                    }
+                </div>
                 </th>
               ))}
             </tr>
@@ -80,4 +93,4 @@ const SortingTable = () => {
   );
 };
 
-export default SortingTable;
+export default FilteringTable;

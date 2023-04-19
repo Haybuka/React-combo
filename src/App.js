@@ -3,6 +3,7 @@
 import BasicTable from "./components/ReactTable/BasicTable";
 import FilteringTable from "./components/ReactTable/FilteringTable";
 import PaginationTable from "./components/ReactTable/PaginationTable";
+import RowSelection from "./components/ReactTable/RowSelection";
 import SortingTable from "./components/ReactTable/SortingTable";
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
       {/* <BasicTable /> */}
       {/* <SortingTable /> */}
       {/* <FilteringTable /> */}
-      <PaginationTable />
+      {/* <PaginationTable /> */}
+      <RowSelection />
     </div>
   );
 }

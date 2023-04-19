@@ -22,6 +22,7 @@ input[type="email"],textarea,select{
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin: 15px 0;
 }
 
 .radio {
@@ -37,6 +38,7 @@ button{
   background-color: #555;
   color: #fff;
   cursor: pointer;
+  margin: 10px 0;
 }
 
 .form-control{

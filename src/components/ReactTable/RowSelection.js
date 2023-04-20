@@ -7,14 +7,15 @@ import { Checkbox } from "./Checkbox";
 const RowSelection = () => {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
+  // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
-    footerGroups,
     selectedFlatRows,
+    state: { selectedRowIds },
   } = useTable(
     {
       columns,
@@ -22,26 +23,37 @@ const RowSelection = () => {
     },
     useRowSelect,
     (hooks) => {
-      hooks.visibleColumns.push((columns) => {
-        return [
-          {
-            id: "selection",
-            Header: ({ getToggleAllRowsSelectedProps }) => (
+      hooks.visibleColumns.push((columns) => [
+        // Let's make a column for selection
+        {
+          id: "selection",
+          // The header can use the table's getToggleAllRowsSelectedProps method
+          // to render a checkbox
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <div>
               <Checkbox {...getToggleAllRowsSelectedProps()} />
-            ),
-            Cell: ({ row }) => {
-                // console.log(row,'row')
-                return<Checkbox {...row.getToggleRowsSelectedProps} />
-            },
+            </div>
+          ),
+          // The cell can use the individual row's getToggleRowSelectedProps method
+          // to the render a checkbox
+          Cell: ({ row }) => {
+            return (
+              <div>
+                <Checkbox {...row.getToggleRowSelectedProps()} />
+              </div>
+            );
           },
-          ...columns,
-        ];
-      });
+        },
+        ...columns,
+      ]);
     }
   );
 
-//   console.log(selectedFlatRows)
-  const firstPageRows = rows.slice(0, 10);
+  //   console.log(selectedFlatRows)
+  //   const firstPageRows = rows.slice(0, 10);
+  const getSelectedRows = (selectedFlatRows) => {
+    console.log(selectedFlatRows, "in function");
+  };
   return (
     <div>
       <table {...getTableProps()}>
@@ -56,41 +68,37 @@ const RowSelection = () => {
         </thead>
 
         <tbody {...getTableBodyProps()}>
-          {firstPageRows.map((row) => {
+          {rows.slice(0, 10).map((row, i) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
-                    <td onClick={() => console.log(cell.row.values)} {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                   );
                 })}
               </tr>
             );
           })}
         </tbody>
-        <tfoot>
-          {footerGroups.map((footerGroup) => (
-            <tr {...footerGroup.getFooterGroupProps()}>
-              {footerGroup.headers.map((column) => (
-                //Header property coming from Header column in imported.
-                <td {...column.getFooterProps()}> {column.render("Footer")}</td>
-              ))}
-            </tr>
-          ))}
-        </tfoot>
       </table>
-      <pre>
+      <button onClick={() => getSelectedRows(selectedFlatRows)}>
+        Submit row
+      </button>
+      {/* <pre>
         <code>
           {JSON.stringify(
             {
-              selectedFlatRows: selectedFlatRows.map((row) => console.log(row)),
+              selectedRowIds: selectedRowIds,
+              "selectedFlatRows[].original": selectedFlatRows.map(
+                (d) => d.original
+              ),
             },
             null,
             2
           )}
         </code>
-      </pre>
+      </pre> */}
     </div>
   );
 };

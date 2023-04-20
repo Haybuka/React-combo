@@ -16,12 +16,15 @@ const RowSelection = () => {
     prepareRow,
     selectedFlatRows,
     state: { selectedRowIds },
+    setGlobalFilter
   } = useTable(
     {
       columns,
       data,
     },
+    
     useRowSelect,
+    
     (hooks) => {
       hooks.visibleColumns.push((columns) => [
         // Let's make a column for selection

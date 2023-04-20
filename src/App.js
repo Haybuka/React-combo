@@ -1,5 +1,6 @@
 // import logo from './logo.svg';
 // import "./App.css";
+import AllTableHooks from "./components/ReactTable/AllTableHooks";
 import BasicTable from "./components/ReactTable/BasicTable";
 import FilteringTable from "./components/ReactTable/FilteringTable";
 import PaginationTable from "./components/ReactTable/PaginationTable";
@@ -13,7 +14,8 @@ function App() {
       {/* <SortingTable /> */}
       {/* <FilteringTable /> */}
       {/* <PaginationTable /> */}
-      <RowSelection />
+      {/* <RowSelection /> */}
+      <AllTableHooks />
     </div>
   );
 }

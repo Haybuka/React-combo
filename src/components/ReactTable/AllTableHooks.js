@@ -1,12 +1,18 @@
 import React, { useMemo } from "react";
-import { useTable, usePagination } from "react-table";
+import {
+  useTable,
+  usePagination,
+  useGlobalFilter,
+  useFilters,
+  useRowSelect,
+} from "react-table";
 import { COLUMNS, GROUPED_COLUMNS } from "./columns";
 import MOCK_DATA from "../MOCK_DATA.json";
 import "./table.css";
+import GlobalFilter from "./GlobalFilter";
+import { Checkbox } from "./Checkbox";
 const AllTableHooks = () => {
   const columns = useMemo(() => COLUMNS, []);
-  // To group columns using the grouped column from columnsJs
-  //   const columns = useMemo(() => GROUPED_COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
   const {
     getTableProps,
@@ -15,6 +21,7 @@ const AllTableHooks = () => {
     rows,
     prepareRow,
     state,
+    // pagination
     gotoPage,
     pageCount,
     setPageSize,
@@ -24,37 +31,68 @@ const AllTableHooks = () => {
     canPreviousPage,
     pageOptions,
     page,
+    // global filter
+    setGlobalFilter,
+    //row selection
+    selectedFlatRows,
   } = useTable(
     {
       columns,
       data,
     },
-    usePagination
+    // global filter
+    useFilters,
+    useGlobalFilter,
+    //pagination
+    usePagination,
+    //row select
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
+        // Let's make a column for selection
+        {
+          id: "selection",
+          // The header can use the table's getToggleAllRowsSelectedProps method
+          // to render a checkbox
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <div>
+              <Checkbox {...getToggleAllRowsSelectedProps()} />
+            </div>
+          ),
+          // The cell can use the individual row's getToggleRowSelectedProps method
+          // to the render a checkbox
+          Cell: ({ row }) => {
+            return (
+              <div>
+                <Checkbox {...row.getToggleRowSelectedProps()} />
+              </div>
+            );
+          },
+        },
+        ...columns,
+      ]);
+    }
   );
-  const { pageIndex, pageSize } = state;
-
+  const { pageIndex, pageSize, globalFilter, selectedRowIds } = state;
+  const getSelectedRows = (selectedFlatRows) => {
+    console.log(selectedFlatRows, "in function");
+  };
   return (
     <div>
-      {/* //pass in getTableProps */}
+      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+
       <table {...getTableProps()}>
-        {/* Header group goes into the head */}
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                //Header property coming from Header column in imported.
                 <th {...column.getHeaderProps()}> {column.render("Header")}</th>
               ))}
             </tr>
           ))}
         </thead>
-        {/* //pass in getTableBodyProps */}
-
         <tbody {...getTableBodyProps()}>
-          {/* row goes into the table body */}
-
           {page.map((row) => {
-            //in other to prepare the row
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
@@ -98,25 +136,30 @@ const AllTableHooks = () => {
         <button disabled={!canPreviousPage} onClick={() => previousPage()}>
           Previous
         </button>
-   
-          <select
-            value={pageSize}
-            style={{ margin:"0 15px",padding:"0 10px"}}
-            onChange={(e) => setPageSize(Number(e.target.value))}
-          >
-            {[10, 25, 50].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                Show {pageSize}
-              </option>
-            ))}
-          </select>
-       
+
+        <select
+          value={pageSize}
+          style={{ margin: "0 15px", padding: "0 10px" }}
+          onChange={(e) => setPageSize(Number(e.target.value))}
+        >
+          {[10, 25, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+
         <button disabled={!canNextPage} onClick={() => nextPage()}>
           Next
         </button>
         <button disabled={!canNextPage} onClick={() => gotoPage(pageCount - 1)}>
           {">>"}
         </button>
+        <p>
+          <button onClick={() => getSelectedRows(selectedFlatRows)}>
+            Submit row
+          </button>
+        </p>
       </div>
     </div>
   );

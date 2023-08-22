@@ -58,7 +58,7 @@ const ProMode = () => {
 
   return (
     <section>
-      <div id="reader" className=" overflow-hidden"></div>
+      <div id="reader" className="overflow-hidden w-[380px] sm:w-[600px]"></div>
       {scanResult && (
         <>
           <InfoText text={`bus code : ${scanResult}`} />

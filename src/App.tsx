@@ -1,25 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
 import './App.css';
+
+import Header from './components/header';
+import ProMode from './components/proMode';
+
+export type decodedTextType = string | number | null;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="App h-screen flex justify-center items-center p-3">
+      <section className="md:w-[600px]  mx-auto">
+        <Header text="Scan Bus Code" />
+        <ProMode />
+      </section>
+    </main>
   );
 }
 

@@ -1,13 +1,40 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* #html5-qrcode-button-camera-start {
+  @apply;
+} */
+img {
+  @apply mx-auto;
+}
+.html5-qrcode-element {
+  text-decoration: none !important;
+
+  @apply bg-[#13274F] px-6 py-2 my-3 rounded-full text-white text-sm uppercase;
+  /* font-size: 14px !important; */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#reader__dashboard_section {
+  /* @apply flex justify-center gap-2 items-center; */
+}
+button,
+#html5-qrcode-anchor-scan-type-change {
+  @apply my-3;
+}
+#reader__dashboard_section span {
+  text-decoration: none;
+}
+
+/* #reader__scan_region {
+  margin: 0 auto;
+  background-color: red;
+  height: 400px !important;
+} */
+
+#qr-shaded-region {
+}
+
+#reader__header_message {
+  display: none !important;
 }

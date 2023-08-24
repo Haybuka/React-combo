@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
-
 import './App.css';
 
 import Header from './components/header';
-import ProMode from './components/proMode';
+import Login from './components/login';
 
 export type decodedTextType = string | number | null;
 
 function App() {
   return (
-    <main className="App h-screen flex justify-center items-center p-3">
-      <section className="md:w-[600px]  mx-auto">
-        <Header text="Scan Bus Code" />
-        <ProMode />
+    <main className="h-screen flex justify-center  p-3">
+      <section className="mx-auto">
+        <Header text="React Hook Form" />
+        <Login />
       </section>
     </main>
   );

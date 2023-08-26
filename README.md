@@ -25,45 +25,38 @@ Dirty - Whether ield value has changed
 
      const {name,ref,onChange,onBlur} = register("username")
 
-<input
-            id="username"
-            type="text"
-           name={name}
-           ref={ref}
-           onChange={onChange}
-           onBlur={onBlur}
-            className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
-          />
+     <input
+          id="username" type="text" name={name} ref={ref} onChange={onChange} onBlur={onBlur}
+          className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
+      />
 
 - Short hand with spread
 
-<input
-id="username"
-type="text"
-{...register('username', )}
-className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
-/>
-// Create and use an error message component.
-<ErrorMessage msg={errors.username?.message} />
+      <input id="username" type="text" {...register('username', )}
+      className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
+      />
+
+      - Create and use an error message component.
+      <ErrorMessage msg={errors.username?.message} />
 
 ### Validate
 
-Provide single validate function for one rule
-Provide object for multiple rule
+- Provide single validate function for one rule
+- Provide object for multiple rule
 
-    <input
-            id="username" type="text"
-            {...register("username", {
-              required: {
-                value: true,
-                message: 'Username is required',
-              },
-            })}
-            className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
-          />
-      // Create and use an error message component.
-          <ErrorMessage msg={errors.username?.message}
-      />
+  <input
+  id="username" type="text"
+  {...register("username", {
+  required: {
+  value: true,
+  message: 'Username is required',
+  },
+  })}
+  className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
+  />
+  // Create and use an error message component.
+  <ErrorMessage msg={errors.username?.message}
+    />
 
 ### Customizing Validation
 
@@ -126,20 +119,20 @@ Default Values
         phNumbers: { number: string }[];
       };
 
-  const form = useForm<FormValues>({
-  defaultValues: {
-  username: 'TAP',
-  email: '',
-  channel: '',
-  social: {
-  twitter: '',
-  facebook: '',
-  },
-  age: 0,
-  phoneNumbers: ['', ''],
-  phNumbers: [{ number: '' }],
-  },
-  });
+       const form = useForm<FormValues>({
+            defaultValues: {
+               username: 'TAP',
+               email: '',
+               channel: '',
+               social: {
+                  twitter: '',
+                  facebook: '',
+               },
+               age: 0,
+               phoneNumbers: ['', ''],
+               phNumbers: [{ number: '' }],
+            },
+       });
 
 - Take note of nested objects, you need the dot notation to access their usage
 
@@ -176,18 +169,18 @@ Default Values
 
 ### Previously saved data can be loaded as default value.
 
-To load previously saved data, the default values is returned async
+- To load previously saved data, the default values is returned async
 
-defaultValues : async () => {
-const response = await fetch('https:jsonplaceholder.typicode.com/users/1');
-const data = await response.json();
-return {
-username: data.name,
-email: data.email,
-channel: data.username,
-...
-};
-},
+  `defaultValues : async () => {
+    const response = await fetch('https:jsonplaceholder.typicode.com/users/1');
+    const data = await response.json();
+    return {
+       username: data.name,
+       email: data.email,
+       channel: data.username,
+        ...
+    };
+}`
 
 ### Dynamic Fields.
 
@@ -195,7 +188,7 @@ channel: data.username,
 
 - `create an initial state as an array of object`
 
-  - set initial values phNumbers: [{ number: '' }],
+- set initial values phNumbers: [{ number: '' }],
 
 - `specify the field to use this as an array of fields, and point out the control.`
 

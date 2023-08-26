@@ -16,14 +16,15 @@ Dirty - Whether ield value has changed
 
 ### `Simple Format`
 
-`const {
-register,
-control,
-handleSubmit,
-formState: { errors },
-} = form;
+     const {
+        register,
+        control,
+        handleSubmit,
+        formState: { errors },
+      } = form;
 
-const {name,ref,onChange,onBlur} = register("username")
+     const {name,ref,onChange,onBlur} = register("username")
+
 <input
             id="username"
             type="text"
@@ -33,18 +34,17 @@ const {name,ref,onChange,onBlur} = register("username")
            onBlur={onBlur}
             className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
           />
-`
 
-Short hand with spread
+- Short hand with spread
 
-`<input
-            id="username"
-            type="text"
-            {...register('username', )}
-            className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
-          />
-          // Create and use an error message component.
-          <ErrorMessage msg={errors.username?.message} />`
+<input
+id="username"
+type="text"
+{...register('username', )}
+className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
+/>
+// Create and use an error message component.
+<ErrorMessage msg={errors.username?.message} />
 
 ### Validate
 
@@ -67,7 +67,7 @@ Provide object for multiple rule
 
 ### Customizing Validation
 
-Validations can be customized
+- Validations can be customized
 
    <div className="my-3">
           <label htmlFor="mail">Email</label>
@@ -209,6 +209,7 @@ channel: data.username,
 - `useFieldArray, and destructure`
 
 * create jsx , well, tsx
+
     <div className="px-6 my-6">
             {fields.map((field, index) => {
               return (

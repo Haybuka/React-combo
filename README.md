@@ -211,19 +211,19 @@ channel: data.username,
 * create jsx , well, tsx
 
     <div className="px-6 my-6">
-            {fields.map((field, index) => {
-              return (
-                <div className="my-3" key={field.id}>
-                  <label htmlFor="primary-phobe">
-                    New Primary Phone Number
-                  </label>
-                  <input
+        {fields.map((field, index) => {
+          return (
+            <div className="my-3" key={field.id}>
+                <label htmlFor="primary-phobe">
+                  New Primary Phone Number
+                </label>
+                <input
                     id="primary-phone"
                     type="text"
                     {...register(`phNumbers.${index}.number` as const)}
                     className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
-                  />
-                  {index > 0 && (
+                />
+                {index > 0 && (
                     <button type="button" onClick={() => remove(index)}>
                       Remove Number
                     </button>
@@ -231,6 +231,7 @@ channel: data.username,
                 </div>
               );
             })}
+            
             <button
               type="button"
               className="text-center block w-full shadow-md py-2 rounded-lg"

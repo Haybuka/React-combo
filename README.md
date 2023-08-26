@@ -69,36 +69,34 @@ Provide object for multiple rule
 
 - Validations can be customized
 
-   <div className="my-3">
+     <div className="my-3">
           <label htmlFor="mail">Email</label>
-          <input
-            id="mail"
-            type="email"
-            {...register('email', {
-              pattern: {
+          <input id="mail" type="email"
+              {...register('email', {
+                pattern: {
                 value:
                   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                 message: 'Invalid email format',
               },
               validate: {
-                notAdmin: (fieldValue) => {
+                  notAdmin: (fieldValue) => {
                   return (
                     fieldValue !== 'admin@example.com' ||
                     'Enter a different email '
                   );
-                },
-                notBlackListed: (fieldValue) => {
+              },
+              notBlackListed: (fieldValue) => {
                   return (
                     !fieldValue.endsWith('baddomain.com') ||
                     'Domain not supported'
                   );
                 },
               },
-            })}
-            className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
+             })}
+             className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
           />
           <ErrorMessage msg={errors.email?.message} />
-    </div>
+     </div>
 
 ### Remember to set Default values
 

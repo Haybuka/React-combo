@@ -1,8 +1,7 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import ErrorMessage from './errorMessage';
-import { error } from 'console';
 
 type FormValues = {
   username: string;
@@ -12,7 +11,9 @@ type FormValues = {
     twitter: string;
     facebook: string;
   };
+  age: number;
   phoneNumbers: string[];
+  phNumbers: { number: string }[];
 };
 
 const Login = () => {
@@ -25,7 +26,9 @@ const Login = () => {
         twitter: '',
         facebook: '',
       },
+      age: 0,
       phoneNumbers: ['', ''],
+      phNumbers: [{ number: '' }],
     },
   });
   const {
@@ -34,46 +37,6 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = form;
-  console.log(errors);
-  // * simple format
-  // const {name,ref,onChange,onBlur} = register("username")
-  // using spread - {...register("username")}
-
-  // * Devtool states
-  //Touch - Whether field has being interacted with
-  //Dirty - Whether ield value has changed
-
-  // * Validate
-  //Provide single validate function for one rule
-  // Provide object for multiple rule
-
-  // * Default Values
-  // -Specifying default values mean we can skip passing in the field type before the useForm
-  // Default value set also pops up on load.
-  // defaultValues: {
-  //   username: 'TAP',
-  //   email: '',
-  //   channel: '',
-  // }
-  // Previously saved data can be loaded as default value.
-  // to load prev.saved data, the default values is returned async
-  // defaultValues : async () => {
-  //   const response = await fetch(
-  //     'https://jsonplaceholder.typicode.com/users/1'
-  //   );
-  //   const data = await response.json();
-  //   return {
-  //     username: data.name,
-  //     email: data.email,
-  //     channel: data.username,
-  //   };
-  // },
-
-  // * nested Objects
-  // declare type
-  // add to initial value object
-  // use dot notation in register to access nested object types.
-  // typescript will offer auto complete
 
   // * Arrays
   // declare type
@@ -81,12 +44,23 @@ const Login = () => {
   // use dot notation (not bracket) in register to access arrays index.
   //
 
+  // Dynamic fields
+  // - useFieldArray : works mainly with array of objects
+  // create an initial state as an array of object
+  // specify the field to use this as an array of fields - useFieldArray, and destructure.
+  // create jsx , well, tsx
+
+  const { fields, append, remove } = useFieldArray({
+    name: 'phNumbers',
+    control,
+  });
+
   const onSubmit = (data: FormValues) => {
     console.log('form submitted', data);
   };
   return (
     <>
-      <form className="w-[400px] " onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form className="w-[600px] " onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="my-3">
           <label htmlFor="username">Username</label>
           <input
@@ -100,7 +74,7 @@ const Login = () => {
             })}
             className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
           />
-          <p className="text-red-600"></p>
+
           <ErrorMessage msg={errors.username?.message} />
         </div>
         <div className="my-3">
@@ -192,7 +166,6 @@ const Login = () => {
             className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
           />
           <ErrorMessage msg={errors?.phoneNumbers?.[0]?.message} />
-          {/* <p>{errors?.phoneNumbers[0]?.message}</p> */}
         </div>
         <div className="my-3">
           <label htmlFor="secondary-phobe">Secondary Phone Number</label>
@@ -202,6 +175,59 @@ const Login = () => {
             {...register('phoneNumbers.1')}
             className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
           />
+        </div>
+
+        <section>
+          <aside className="border rounded-md relative my-10">
+            <label className="absolute -top-3 bg-white px-3 left-0">
+              Field Array : List of phone numbers
+            </label>
+            <div className="px-6 my-6">
+              {fields.map((field, index) => {
+                return (
+                  <div className="my-3" key={field.id}>
+                    <label htmlFor="primary-phobe">
+                      New Primary Phone Number
+                    </label>
+                    <input
+                      id="primary-phone"
+                      type="text"
+                      {...register(`phNumbers.${index}.number` as const)}
+                      className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
+                    />
+                    {index > 0 && (
+                      <button type="button" onClick={() => remove(index)}>
+                        Remove Number
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+              <button
+                type="button"
+                className="text-center block w-full shadow-md py-2 rounded-lg"
+                onClick={() => append({ number: '' })}
+              >
+                Add Number Fields
+              </button>
+            </div>
+          </aside>
+        </section>
+        <div className="my-3">
+          <label htmlFor="age">age</label>
+          <input
+            id="age"
+            type="number"
+            {...register('age', {
+              valueAsNumber: true,
+              required: {
+                value: true,
+                message: 'age is required',
+              },
+            })}
+            className="block w-full my-1 border rounded-lg py-1 focus:border-gray-400 focus:outline-none px-2"
+          />
+          <ErrorMessage msg={errors.age?.message} />
         </div>
         <button className="text-center block w-full rounded-lg py-1 bg-blue-800 text-white">
           Submit

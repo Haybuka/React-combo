@@ -210,10 +210,10 @@ channel: data.username,
 
 * create jsx , well, tsx
 
-    <div className="px-6 my-6">
-        {fields.map((field, index) => {
-          return (
-            <div className="my-3" key={field.id}>
+     <div className="px-6 my-6">
+           {fields.map((field, index) => {
+              return (
+                <div className="my-3" key={field.id}>
                 <label htmlFor="primary-phobe">
                   New Primary Phone Number
                 </label>
@@ -230,8 +230,8 @@ channel: data.username,
                   )}
                 </div>
               );
-            })}
-            
+             })}
+
             <button
               type="button"
               className="text-center block w-full shadow-md py-2 rounded-lg"
@@ -239,4 +239,5 @@ channel: data.username,
             >
               Add Number Fields
             </button>
+
      </div>

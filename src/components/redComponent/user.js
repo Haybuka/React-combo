@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchUsers, updateUsers } from '../redux/user'
+import { fetchUsers } from '../../redux/user'
 
 const User = () => {
   const dispatch = useDispatch()
@@ -22,12 +22,7 @@ const User = () => {
       ) : (<p>Loading</p>)}
 
 
-      <p onClick={() => updateUsers({
-        "userId": 234,
-        "id": 234,
-        "title": "i did this",
-        "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-      })}>Update users</p>
+      <p >Update users</p>
     </div>
   )
 }

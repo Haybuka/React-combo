@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { buyCream } from '../redux';
+import { buyCream } from '../../redux/index';
 
 const CreamContainer = () => {
   const numOfCream = useSelector((state) => state.cream.numOfCream);

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { buyCake } from '../redux';
+import { buyCake } from '../../redux/index';
 import { useState } from 'react';
 
 const CakeContainer = (props) => {

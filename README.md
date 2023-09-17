@@ -1,4 +1,4 @@
-## Redux - Concept (vanilla redux)
+## Redux - 3 Concept (vanilla redux)
 
 - Store
   Contains all state (a single object) for a reducer... One store
@@ -9,6 +9,16 @@
 - Reducer
   Makes mutation and changes to the store.
   It specify how the app changes in response to actions sent to the store.
+
+## Redux - 3 Principle
+
+- Global state of application is stored as an object in a single store.
+
+- The only way to change a state (read only) is to dispatch an action. An action is an object that describes what happened.
+
+Not directly allowed to update state.
+
+- Use pure reducers to specify how the state tree is updated by actions,
 
 ## Redux - Action
 
@@ -160,3 +170,14 @@ const store = createStore(rootReducer, applyMiddleWare(logger))
     })
   }
   ```
+
+## Redux - BindActionCreators
+
+- Used to group actions so they are more descriptive.
+
+```
+const bindActionCreators = redux.bindActionCreators
+const action = bindActionCreators({ buyCake, buyIcecream }, store.dispatch)
+ action.buyCake()
+action.buyCake()
+```

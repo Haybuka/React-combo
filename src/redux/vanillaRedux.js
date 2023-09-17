@@ -87,5 +87,20 @@ const fetchUsers = () => (dispatch) => {
 
 
 const store = createStore(reducer, applyMiddleWare(thunkMiddleWare, logger))
+console.log("initial state", store.getState())
+const action = redux.bindActionCreators({ fetchUsersFailure, fetchUsersRequest }, store.dispatch)
 const unsubscribe = store.subscribe(() => console.log(store.getState()))
 store.dispatch(fetchUsers())
+
+
+
+// store.dispatch(fetchUsersSuccess())
+// store.dispatch(fetchUsersSuccess())
+// store.dispatch(fetchUsersSuccess())
+// store.dispatch(buyIcecream())
+// store.dispatch(buyIcecream())
+action.fetchUsersFailure()
+// action.buyCake()
+// action.buyCake()
+// action.buyCake()
+unsubscribe()

@@ -11,6 +11,7 @@ const ReduxDemo = () => {
   return (
     <Provider store={store}>
       <div className="App">
+        <p>Redux</p>
         <CakeContainer />
         <HooksCakeContainer />
         <CreamContainer />

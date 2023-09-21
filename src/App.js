@@ -1,12 +1,18 @@
 
+import { Provider } from 'react-redux';
 import './App.css'
+import store from './reduxToolKit/app/store';
+import UserView from './component/users/userView';
 
 
 
 function App() {
   return (
 
-    <p>rEDUX TOOL KIT</p>
+    <Provider store={store}>
+      <p>Redux </p>
+      <UserView />
+    </Provider>
   );
 }
 

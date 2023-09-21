@@ -11,9 +11,9 @@ const initialState = {
 // createAsyncThunk generates pending,fulfilled or rejected action types based on promise returned 
 // and they can be listened to. in other to perform actions.
 
-const fetchUsers = createAsyncThunk("user/fetchUsers", () => {
+export const fetchUsers = createAsyncThunk("user/fetchUsers", () => {
 
-  return axios.get("https://jsonplaceholder.typicode.com/usersx/")
+  return axios.get("https://jsonplaceholder.typicode.com/users/")
     .then(response => response?.data)
 
 })

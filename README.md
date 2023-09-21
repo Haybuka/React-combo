@@ -12,6 +12,6 @@
 
       - Store
 
-## Installation
+## Installation : install needed packages
 
 - npm i axios @reduxjs/toolkit react-redux redux-logger

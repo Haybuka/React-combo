@@ -1,12 +1,12 @@
 
 import './App.css'
-import ReduxDemo from './components/redComponent';
+
 
 
 function App() {
   return (
 
-    <ReduxDemo />
+    <p>rEDUX TOOL KIT</p>
   );
 }
 

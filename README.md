@@ -118,3 +118,26 @@ const UserView = () => {
 export default UserView;
 
 ```
+
+# Usage - synchronous : cakeSlice
+
+- setup cakeSlice
+
+- use reducers (receives only actions that affects it) and not extra reducers (receives all actions for all combined reduccer).
+
+- export cakeReducer and the actions
+
+```
+export default cakeSlice.reducer
+export const { ordered, restocked } = cakeSlice.actions
+```
+
+- combine reducer in store
+
+- use where appropx.
+
+```
+  const handleCakeOrder = () => {
+    dispatch(ordered());
+  };
+```

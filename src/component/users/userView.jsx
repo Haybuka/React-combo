@@ -4,6 +4,7 @@ import { fetchUsers } from '../../reduxToolKit/features/users/userSlice';
 
 const UserView = () => {
   const { loading, users, error } = useSelector((state) => state.user);
+  const { numOfCakes } = useSelector((state) => state.cake);
 
   const dispatch = useDispatch();
 
@@ -16,6 +17,7 @@ const UserView = () => {
       {loading && <p>Loading</p>}
       {loading === false && error && <p>{error}</p>}
       {users.length > 0 && <p>User</p>}
+      {numOfCakes}
     </section>
   );
 };
